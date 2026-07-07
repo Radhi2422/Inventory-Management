@@ -17,7 +17,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  });
 
   const fetchProduct = async () => {
     try {

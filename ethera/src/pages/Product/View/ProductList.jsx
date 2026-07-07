@@ -5,9 +5,6 @@ import "./ProductList.css";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   const getProducts = async () => {
     try {
