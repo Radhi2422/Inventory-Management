@@ -1,9 +1,9 @@
 import axios from "axios";
-const API_URL="http://localhost:5001/api/auth";
+const REACT_APP_API_URL=process.env.REACT_APP_API_URL;
 
 export const loginUser = async (data) => {
   return await axios.post(
-    `${API_URL}/login`,
+    `${REACT_APP_API_URL}/login`,
     data
   );
 };
