@@ -6,6 +6,9 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
 
+  useEffect(() => {
+    getProducts();
+  }, []);
   const getProducts = async () => {
     try {
       const res = await axios.get("http://localhost:5001/products/view");
