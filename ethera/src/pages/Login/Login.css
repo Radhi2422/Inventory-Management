@@ -1,0 +1,78 @@
+/* Full page sky blue background */
+.login-container {
+  height: 100vh;
+  background-color: skyblue;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Form card */
+.login-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login-card input {
+  padding: 10px;
+  margin-bottom: 15px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.forgot-link {
+  text-decoration: none;
+  margin-bottom: 15px;
+  color: #0077cc;
+  font-size: 14px;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.login-card button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+
+  background-color: #0077cc;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-card button:hover {
+  background-color: #005fa3;
+}
+
+.login-card button:disabled {
+  background-color: #a0c4de;
+  cursor: not-allowed;
+}
+.error {
+  color: red;
+  margin: 10px 0;
+  font-size: 14px;
+}
