@@ -9,13 +9,15 @@ export default function AddCustomer() {
     Address: "",
     ContactNumber: ""
   });
+    const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
+    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await axios.post(
-        "http://localhost:5001/customers/add-customer",
+        `${REACT_APP_BASE_URL}/customers/add-customer`,
         formData
       );
 

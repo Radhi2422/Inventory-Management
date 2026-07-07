@@ -10,6 +10,8 @@ export default function AddProduct() {
     quantityInStock: ""
   });
 
+  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,7 +21,7 @@ export default function AddProduct() {
       // const role = JSON.parse(localStorage.getItem("role"));
       console.log("hiiiiii");
       await axios.post(
-        "http://localhost:5001/products/add-product",
+        `${REACT_APP_BASE_URL}/products/add-product`,
         formData,
         {
         headers: {
