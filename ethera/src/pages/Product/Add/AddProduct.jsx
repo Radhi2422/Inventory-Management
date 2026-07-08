@@ -10,12 +10,12 @@ export default function AddProduct() {
     quantityInStock: ""
   });
 
-  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
       const token = localStorage.getItem("token");
       console.log(token);
       // const role = JSON.parse(localStorage.getItem("role"));

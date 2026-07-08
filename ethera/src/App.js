@@ -10,6 +10,7 @@ import ShowOrders from "./pages/Orders/Admin Page/OrderDetails.jsx";
 import ProductList from "./pages/Product/View/ProductList.jsx";
 import EditProduct from "./pages/Product/Edit/EditProduct.jsx";
 import CustomerDashboard from "./pages/Customer/Admin Page/Customer.jsx";
+import CustomerList from "./pages/Customer/View/CustomerPage.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -22,9 +23,9 @@ function App() {
          <Route path="/products/view" element={<ProductList />}/>
         <Route path="/customers" element={<CustomerDashboard />} />
         <Route path="/customers/add-customer" element={<AddCustomer />} />
-        <Route path="/customers/edit-customer/:id" element={<EditCustomer />} />
-        
-        <Route path="/orders/get" element={<ShowOrders />} />
+        <Route path="/customers/view-customers" element={<CustomerList />} />
+        <Route path="/customers/edit-customer/:id" element={<EditCustomer />} />        
+        <Route path="/orders/view" element={<ShowOrders />} />
     </Routes>
     </BrowserRouter>
 

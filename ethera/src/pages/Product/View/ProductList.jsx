@@ -5,13 +5,14 @@ import "./ProductList.css";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
-  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
   useEffect(() => {
     getProducts();
-  });
+  }, []);
 
   const getProducts = async () => {
     try {
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
       const res = await axios.get(`${REACT_APP_BASE_URL}/products/view`);
       setProducts(res.data.products);
     } catch (err) {
