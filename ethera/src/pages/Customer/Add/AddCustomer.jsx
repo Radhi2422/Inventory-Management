@@ -9,16 +9,21 @@ export default function AddCustomer() {
     Address: "",
     ContactNumber: ""
   });
-    const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
-    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
+      const token = localStorage.getItem("token");
       await axios.post(
         `${REACT_APP_BASE_URL}/customers/add-customer`,
-        formData
+        formData,
+        {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }}
       );
 
       alert("Customer Added Successfully!");

@@ -7,14 +7,14 @@ export default function ShowOrders() {
 
   useEffect(() => {
     fetchOrders();
-  });
+  }, []);
 
-  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
-  
   const fetchOrders = async () => {
     try {
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
       const res = await axios.get(
-        `${REACT_APP_BASE_URL}/orders/get`
+       `${REACT_APP_BASE_URL}/orders/view`
       );
 
       setOrders(res.data);

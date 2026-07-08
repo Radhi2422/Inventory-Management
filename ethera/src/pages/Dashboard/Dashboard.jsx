@@ -37,17 +37,36 @@ export default function Dashboard() {
 
   const loadDashboard = async () => {
     try {
-      const products = await axios.get("/products");
-      const customers = await axios.get("/customers");
-      const orders = await axios.get("/orders");
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
+      const token = localStorage.getItem("token");
+      
+      const products = await axios.get(`${REACT_APP_BASE_URL}/products/view`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+      const customers = await axios.get(`${REACT_APP_BASE_URL}/customers/view`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    console.log(products);
+    
+      const orders = await axios.get(`${REACT_APP_BASE_URL}/orders/view`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
       setStats({
-        products: products.data.length,
-        customers: customers.data.length,
-        orders: orders.data.length,
-        lowStock: products.data.filter(
-          p => p.quantity < 5
-        ).length
+        products: products.data.count,
+        customers: customers.data.count,
+        orders: orders.data.count,
+        lowStock:5
+        // lowStock: products.data.filter(
+        //   p => p.quantity < 5
+        // ).length
       });
     } catch (error) {
       console.log(error);
@@ -103,7 +122,9 @@ export default function Dashboard() {
           <p>Manage customer information.</p>
         </div>
 
-        <div className="section-box">
+        <div className="section-box"
+        onClick={() => navigate("/orders/view")}
+      style={{ cursor: "pointer" }}>
           <h3>Orders</h3>
           <p>Track and manage orders.</p>
         </div>

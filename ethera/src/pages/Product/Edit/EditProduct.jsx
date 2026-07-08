@@ -7,8 +7,6 @@ const EditProduct = () => {
   const { name } = useParams();
   const navigate = useNavigate();
 
-  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
-  
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -23,6 +21,8 @@ const EditProduct = () => {
 
   const fetchProduct = async () => {
     try {
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
       const res = await axios.get(
         `${REACT_APP_BASE_URL}/api/products/update/${name}`
       );
@@ -45,6 +45,8 @@ const EditProduct = () => {
     e.preventDefault();
 
     try {
+      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+      
       await axios.put(
         `${REACT_APP_BASE_URL}/api/products/update/${name}`,
         product
