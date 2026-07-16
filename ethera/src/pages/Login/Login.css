@@ -1,78 +1,124 @@
-/* Full page sky blue background */
-.login-container {
-  height: 100vh;
-  background-color: skyblue;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Form card */
-.login-card {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  width: 350px;
+body {
+    background: #eef2f7;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #eef2f7, #d9e7ff);
+}
+
+.login-card {
+    width: 400px;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
 .login-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
 }
 
 .login-card form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-card label {
-  margin-bottom: 5px;
-  font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .login-card input {
-  padding: 10px;
-  margin-bottom: 15px;
-
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    height: 48px;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    padding: 0 15px;
+    font-size: 15px;
+    transition: .3s;
 }
 
-.forgot-link {
-  text-decoration: none;
-  margin-bottom: 15px;
-  color: #0077cc;
-  font-size: 14px;
-}
-
-.forgot-link:hover {
-  text-decoration: underline;
+.login-card input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37,99,235,.2);
 }
 
 .login-card button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-
-  background-color: #0077cc;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;
 }
 
 .login-card button:hover {
-  background-color: #005fa3;
+    background: #1d4ed8;
 }
 
-.login-card button:disabled {
-  background-color: #a0c4de;
-  cursor: not-allowed;
-}
 .error {
-  color: red;
-  margin: 10px 0;
-  font-size: 14px;
+    color: #dc2626;
+    text-align: center;
+    font-size: 14px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 28px 0 18px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+    margin: 0 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.register-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: white;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.register-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+@media (max-width: 500px) {
+    .login-card {
+        width: 92%;
+        padding: 25px;
+    }
 }

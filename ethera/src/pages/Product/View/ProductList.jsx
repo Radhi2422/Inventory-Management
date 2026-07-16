@@ -12,8 +12,11 @@ const ProductList = () => {
   const getProducts = async () => {
     try {
       const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
-      
-      const res = await axios.get(`${REACT_APP_BASE_URL}/products/view`);
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`${REACT_APP_BASE_URL}/products/view`,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }});
       setProducts(res.data.products);
     } catch (err) {
       console.log(err);
@@ -55,7 +58,7 @@ const ProductList = () => {
                   <td>{product.name}</td>
                   <td>{product.sku}</td>
                   <td>₹ {product.price}</td>
-                  <td>{product.quantity}</td>
+                  <td>{product.quantityInStock}</td>
                 </tr>
               ))
             )}

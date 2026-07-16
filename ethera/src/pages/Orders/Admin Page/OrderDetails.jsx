@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../Product/AdminPage/Product.css"
+import "./OrderDetails.css";
 
 export default function ShowOrders() {
   const [orders, setOrders] = useState([]);
@@ -11,10 +11,10 @@ export default function ShowOrders() {
 
   const fetchOrders = async () => {
     try {
-      const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
-      
+      const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
       const res = await axios.get(
-       `${REACT_APP_BASE_URL}/orders/view`
+        `${REACT_APP_BASE_URL}/orders/view`
       );
 
       setOrders(res.data);
@@ -23,54 +23,76 @@ export default function ShowOrders() {
     }
   };
 
+  const getStatusClass = (status) => {
+    switch (status?.toLowerCase()) {
+      case "delivered":
+        return "delivered";
+      case "pending":
+        return "pending";
+      case "cancelled":
+        return "cancelled";
+      case "shipped":
+        return "shipped";
+      default:
+        return "default";
+    }
+  };
+
   return (
-    <div className="product-page">
+    <div className="orders-page">
 
-      <div className="intro-section">
-        <h1>Order Management</h1>
-
+      <div className="orders-header">
+        <h1>My Orders</h1>
         <p>
-          View and monitor all customer orders,
-          order quantities, amounts, and status.
+          Track all your purchases and monitor their current status.
         </p>
       </div>
 
-      <div className="product-list-section">
-        <h2>Existing Orders</h2>
+      {orders.length === 0 ? (
+        <div className="empty-orders">
+          <h2>No Orders Yet</h2>
+          <p>Your placed orders will appear here.</p>
+        </div>
+      ) : (
+        <div className="orders-container">
+          {orders.map((order) => (
+            <div className="order-card" key={order._id}>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Customer</th>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
+              <div className="order-top">
+                <div>
+                  <h3>{order.productName}</h3>
+                  <p className="customer">
+                    Ordered By : {order.customerName}
+                  </p>
+                </div>
 
-          <tbody>
-            {orders.length > 0 ? (
-              orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order.customerName}</td>
-                  <td>{order.productName}</td>
-                  <td>{order.quantity}</td>
-                  <td>₹{order.totalAmount}</td>
-                  <td>{order.status}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">
-                  No Orders Found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+                <span
+                  className={`status ${getStatusClass(order.status)}`}
+                >
+                  {order.status}
+                </span>
+              </div>
 
+              <hr />
+
+              <div className="order-details">
+
+                <div>
+                  <span>Quantity</span>
+                  <h4>{order.quantity}</h4>
+                </div>
+
+                <div>
+                  <span>Total Amount</span>
+                  <h4>₹{order.totalAmount}</h4>
+                </div>
+
+              </div>
+
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

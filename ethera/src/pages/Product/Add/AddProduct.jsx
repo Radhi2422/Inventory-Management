@@ -17,9 +17,6 @@ export default function AddProduct() {
       const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
       
       const token = localStorage.getItem("token");
-      console.log(token);
-      // const role = JSON.parse(localStorage.getItem("role"));
-      console.log("hiiiiii");
       await axios.post(
         `${REACT_APP_BASE_URL}/products/add-product`,
         formData,
@@ -40,7 +37,6 @@ export default function AddProduct() {
       });
 
     } catch (error) {
-      // console.log(formData);
       alert("Failed to add product");
       console.log(error);
     }

@@ -22,8 +22,6 @@ export function Dashboard1() {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-        const role=localStorage.getItem("role")
-        console.log(role);
   const [stats, setStats] = useState({
     products: 0,
     customers: 0,
@@ -51,7 +49,6 @@ export default function Dashboard() {
             Authorization: `Bearer ${token}`,
         },
     });
-    console.log(products);
     
       const orders = await axios.get(`${REACT_APP_BASE_URL}/orders/view`,{
         headers: {

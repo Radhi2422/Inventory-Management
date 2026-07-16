@@ -18,7 +18,6 @@ const CustomerList = () => {
             Authorization: `Bearer ${token}`
         }});
       setCustomers(res.data.customerData);
-      console.log(res);
       
     } catch (err) {
       console.log(err);
@@ -59,7 +58,7 @@ const CustomerList = () => {
                 <tr key={customer._id}>
                   <td>{customer.name}</td>
                   <td>{customer.email}</td>
-                  <td>₹ {customer.Address}</td>
+                  <td>{customer.Address}</td>
                   <td>{customer.ContactNumber}</td>
                 </tr>
               ))
