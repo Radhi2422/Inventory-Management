@@ -12,12 +12,15 @@ export default function ShowOrders() {
   const fetchOrders = async () => {
     try {
       const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-
+      const token = localStorage.getItem("token");
       const res = await axios.get(
-        `${REACT_APP_BASE_URL}/orders/view`
+        `${REACT_APP_BASE_URL}/orders/view`,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }}
       );
 
-      setOrders(res.data);
+      setOrders(res.data.orderData);
     } catch (error) {
       console.error("Error fetching orders", error);
     }
