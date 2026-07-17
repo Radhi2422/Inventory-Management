@@ -8,5 +8,5 @@ Validations should be there some.
 
 Also after adding page should be redirected to some other page.
 
-2)Feature 2:
+2) Feature 2:
 Implementing Dark and light theme based on system theme setting.
