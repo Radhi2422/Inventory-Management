@@ -17,11 +17,15 @@ export const CodeDashboard = () => {
   }, []);
   
   const getProblems = async () => {
+    try{
     const res = await axios.get(
       `${REACT_APP_BASE_URL}/problems/api/problems`
     );
 
     setProblems(res.data.problems);
+      } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
