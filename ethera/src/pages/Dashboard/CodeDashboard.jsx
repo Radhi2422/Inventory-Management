@@ -11,10 +11,10 @@ export const CodeDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
   useEffect(() => {
     getProblems();
   }, []);
-  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
   
   const getProblems = async () => {
     const res = await axios.get(
