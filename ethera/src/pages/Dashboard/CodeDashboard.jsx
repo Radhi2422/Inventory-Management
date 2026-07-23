@@ -12,21 +12,21 @@ export const CodeDashboard = () => {
   const dispatch = useDispatch();
 
   const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
-  useEffect(() => {
-    getProblems();
-  }, []);
-  
-  const getProblems = async () => {
-    try{
-    const res = await axios.get(
-      `${REACT_APP_BASE_URL}/problems/api/problems`
-    );
+  const getProblems = useCallback(async () => {
+    try {
+      const res = await axios.get(
+        `${REACT_APP_BASE_URL}/problems/api/problems`
+      );
 
-    setProblems(res.data.problems);
-      } catch (err) {
+      setProblems(res.data.problems);
+    } catch (err) {
       console.log(err);
     }
-  };
+  }, [REACT_APP_BASE_URL]);
+
+  useEffect(() => {
+    getProblems();
+  }, [getProblems]);
 
   return (
     <div className="dashboard">
