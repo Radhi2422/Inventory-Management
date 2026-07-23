@@ -14,8 +14,7 @@ export const CodeDashboard = () => {
   useEffect(() => {
     getProblems();
   }, []);
-  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
-  const token = localStorage.getItem("token");
+  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL;
   
   const getProblems = async () => {
     const res = await axios.get(
