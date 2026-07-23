@@ -14,10 +14,12 @@ export const CodeDashboard = () => {
   useEffect(() => {
     getProblems();
   }, []);
-
+  const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+  const token = localStorage.getItem("token");
+  
   const getProblems = async () => {
     const res = await axios.get(
-      "http://localhost:5001/problems/api/problems"
+      `${REACT_APP_BASE_URL}/problems/api/problems`
     );
 
     setProblems(res.data.problems);
