@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { loginUser } from "../../services/authService";
-import { analytics } from "../analytics/segment";
+import { analytics } from "../../analytics/segment";
 
 const Login = () => {
   const [userId, setUserId] = useState("");
