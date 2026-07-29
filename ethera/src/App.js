@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx"
@@ -15,9 +14,18 @@ import UserDashboard from "./pages/Dashboard/UserDashboard.jsx";
 import { CodeDashboard } from "./pages/Dashboard/CodeDashboard.jsx";
 import ProblemPage from "./pages/Code Editor/ProblemPage.jsx";
 import AddProduct from "./pages/Product/Add2/AddProduct.jsx";
-function App() {
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { analytics } from "./analytics/segment";
+
+function AppContent() {
+  const location = useLocation();
+
+  useEffect(() => {
+    analytics.page();
+  }, [location]);
+
   return (
-    <BrowserRouter>
     <Routes>
       <Route path="/" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
@@ -39,10 +47,14 @@ function App() {
         <Route path="/codedashboard" element={<CodeDashboard/>}/>
         <Route path="/problems" element={<ProblemPage />} />
     </Routes>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+    <AppContent />
     </BrowserRouter>
-
-
-
   );
 }
 
