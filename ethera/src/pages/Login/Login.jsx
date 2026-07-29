@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { loginUser } from "../../services/authService";
+import { analytics } from "../analytics/segment";
 
 const Login = () => {
   const [userId, setUserId] = useState("");
@@ -36,9 +37,7 @@ const Login = () => {
           replace: true,
         });
       }
-        // console.log(response.data);
-
-        //
+        analytics.track("User Logged In");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Login Failed");
