@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema(
     },
     userId:{
         type:String,
+        unique:true,
         required:true
     },
 
@@ -38,6 +39,9 @@ const userSchema = new mongoose.Schema(
     collection: "ProductUser"
 }
 );
+
+// Index on email
+userSchema.index({ userID: 1 });
 // const User = mongoose.model("User", userSchema);
 // console.log(User.collection.name);
 module.exports = mongoose.model("User", userSchema);

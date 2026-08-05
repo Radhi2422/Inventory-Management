@@ -1,5 +1,7 @@
 const product =
 require("../models/productSchema.js");
+//Adding logging
+const logger=require("../logs/logger.js") ;
 
 exports.createProduct =
 async(req,res)=>{
@@ -19,22 +21,58 @@ async(req,res)=>{
 
 exports.getProduct = async (req, res) => {
   try {
-    const products = await product.find({});
+    console.log("Getting Products");
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const products = await product.find({}).skip(skip).limit(limit);
+    // const products = await product.find({});
+    const totalProducts = await product.countDocuments();
+    
+     logger.info("Products fetched successfully", {
+      count: products.length,
+    });
     return res.status(200).json({
       success: true,
       count: products.length,
+      totalProducts,
+      currentPage: page,
+      totalPages: Math.ceil(totalProducts / limit),
       products,
     });
-    console.log(products)
   } catch (error) {
     console.error(error);
-
+    logger.error("Failed to fetch products", {
+      message: error.message,
+      stack: error.stack,
+    });
     return res.status(500).json({
       success: false,
       message: "Error fetching products",
       error: error.message,
     });
   }
+};
+exports.searchProducts = async (req, res) => {
+    try {
+      console.log("Hey here");
+        const { name } = req.query;
+        console.log("Searching for products with name:", name);
+        const products = await Product.find({
+            name: { $regex: name, $options: "i" }
+        });
+
+        res.status(200).json({
+            success: true,
+            data: products
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
 
 exports.updateProduct = async (req, res) => {
@@ -62,14 +100,26 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-exports.getProductById =
-async(req,res)=>{
-    const Product =
-        await product.find({
-           name: req.query.name
-});
+exports.getProductById =async (req, res) => {
+ try {
+      console.log("Hey here");
+        const { name } = req.query;
+        console.log("Searching for products with name:", name);
+        const products = await Product.find({
+            name: { $regex: name, $options: "i" }
+        });
 
-    res.json(Product);
+        res.status(200).json({
+            success: true,
+            data: products
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
 
 exports.deleteProduct =
