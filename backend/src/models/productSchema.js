@@ -1,15 +1,14 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-  name: {
+  productName: {
     type: String,
     required: true
   },
 
-  sku: {
+  category: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
 
   price: {
@@ -17,11 +16,16 @@ const productSchema = new mongoose.Schema({
     required: true
   },
 
-  quantityInStock: {
+  quantity: {
     type: Number,
     required: true
   }
 });
 
-module.exports =
-  mongoose.model("Product", productSchema);
+// Index productName
+productSchema.index({ productName: 1 });
+
+// Index category
+productSchema.index({ category: 1 });
+
+module.exports = mongoose.model("Product", productSchema);

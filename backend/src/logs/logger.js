@@ -8,10 +8,22 @@ const logger = winston.createLogger({
       ({ timestamp, level, message }) =>
         `${timestamp} [${level.toUpperCase()}]: ${message}`
     )
+    //  winston.format.json()
   ),
   transports: [
+    // Errors go here
+    new winston.transports.File({
+      filename: "logs/error.log",
+      level: "error",
+    }),
+
+    // All logs go here
+    new winston.transports.File({
+      filename: "logs/combined.log",
+    }),
+
+    // Also show logs in terminal
     new winston.transports.Console(),
-    new winston.transports.File({ filename: "app.log" })
   ]
 });
 
