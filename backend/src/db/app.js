@@ -9,6 +9,7 @@ const swaggerSpec = require("../api documentation/swagger.js");
 // const xss=require("xss-clean");
 // const hpp=require("hpp");
 
+const logRoutes=require("../routes/logRoutes.js")
 const authRoutes =require("../routes/authRoutes");
 const productRoutes = require("../routes/productroutes");
 const customerRoutes = require("../routes/customerroutes");
@@ -20,23 +21,8 @@ const requestLogger = require("../logs/requestLogger.js");
 
 const app = express();
 app.use(cors());
-// app.use(helmet());
-
-// // app.use(mongoSanitize());
-
-// app.use(xss());
-
-// app.use(hpp());
-
-// app.use(rateLimit({
-
-//     windowMs:15*60*1000,
-
-//     max:100
-
-// }));
 app.use(express.json());
-// app.use(requestLogger);
+app.use(".api.logs",logRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/customers", customerRoutes);

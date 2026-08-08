@@ -1,34 +1,51 @@
-const product =
-require("../models/productSchema.js");
+const product2 =
+require("../models/product2Schema.js");
+//Adding logging
+const logger=require("../logs/logger.js") ;
 
 exports.createProduct =
 async(req,res)=>{
     const variants = JSON.parse(req.body.variants);
     const specifications = JSON.parse(req.body.specifications);
-
     const productData = {
           ...req.body,
           specifications: JSON.parse(req.body.specifications || "[]"),
           variants: JSON.parse(req.body.variants || "[]")
     };
-    // console.log(productData);
-    const Product = product.create(productData);
-    await product.save();
-    res.status(201).json(Product);
+    console.log("Hii",productData);
+    
+    console.log("Product Data:", productData);
+    const product = await product2.create(productData);
+    res.status(201).json(product);
 };
 
 exports.getProduct = async (req, res) => {
   try {
-    const products = await product.find({});
+    console.log("Getting Products");
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const products = await product2.find({}).skip(skip).limit(limit);
+    // const products = await product.find({});
+    const totalProducts = await product2.countDocuments();
+    
+     logger.info("Products fetched successfully", {
+      count: products.length,
+    });
     return res.status(200).json({
       success: true,
       count: products.length,
+      totalProducts,
+      currentPage: page,
+      totalPages: Math.ceil(totalProducts / limit),
       products,
     });
-    console.log(products)
   } catch (error) {
     console.error(error);
-
+    logger.error("Failed to fetch products", {
+      message: error.message,
+      stack: error.stack,
+    });
     return res.status(500).json({
       success: false,
       message: "Error fetching products",
@@ -36,11 +53,32 @@ exports.getProduct = async (req, res) => {
     });
   }
 };
+exports.searchProducts = async (req, res) => {
+    try {
+      console.log("Hey here");
+        const { name } = req.query;
+        console.log("Searching for products with name:", name);
+        const products = await product2.find({
+            name: { $regex: name, $options: "i" }
+        });
+
+        res.status(200).json({
+            success: true,
+            data: products
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
 
 exports.updateProduct = async (req, res) => {
   try {
     const updatedProduct =
-        await product.find({
+        await product2.find({
            name: req.query.name
 });
 
@@ -62,20 +100,32 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-exports.getProductById =
-async(req,res)=>{
-    const Product =
-        await product.find({
-           name: req.query.name
-});
+exports.getProductById =async (req, res) => {
+ try {
+      console.log("Hey here");
+        const { name } = req.query;
+        console.log("Searching for products with name:", name);
+        const products = await product2.find({
+            name: { $regex: name, $options: "i" }
+        });
 
-    res.json(Product);
+        res.status(200).json({
+            success: true,
+            data: products
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
 };
 
 exports.deleteProduct =
 async(req,res)=>{
 
-    await product.findByIdAndDelete(
+    await product2.findByIdAndDelete(
         req.params.id
     );
 
